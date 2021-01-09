@@ -1,0 +1,12 @@
+.name{
+    font-size: 25px;
+}
+
+.navicon{
+    margin-right: 10px;
+}
+
+.inline{
+    display: flex;
+    align-items:center;
+}

@@ -1,0 +1,16 @@
+.icon {
+    margin-right: 10px;
+}
+
+.button{
+    display: flex;
+    align-items:center;
+}
+
+.button-text{
+    font-size: 30px
+}
+
+.button-container{
+    border-radius: 30px !important;
+}
