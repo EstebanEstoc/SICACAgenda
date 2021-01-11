@@ -11,6 +11,10 @@
     font-size: 30px
 }
 
+.button-logout-text{
+    font-size: 20px
+}
+
 .button-container{
     border-radius: 30px !important;
 }

@@ -7,7 +7,7 @@ import GoogleButton from "../../features/GoogleAuth/GoogleButton";
 
 const Login = () => {
   return (
-    <Container maxWidth="sm" className="container">
+    <Container className="container">
       <Grid
         container
         direction="column"
@@ -22,7 +22,7 @@ const Login = () => {
           alignItems="center"
           spacing={1}
         >
-          <Grid item className="inline">
+          <Grid item>
             <img
               height="100px"
               src="assets/logo_inline.png"

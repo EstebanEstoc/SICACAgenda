@@ -1,31 +1,27 @@
+import { GoogleLogout } from "react-google-login";
 import React from "react";
 import { useDispatch } from "react-redux";
-import GoogleSignIn from "react-google-login";
-
-import { toggleAuthTrue } from "./authenticationSlice";
-import { addUserInfo } from "./GoogleAuthSlices";
-import { GoogleCalendarConfig } from "../GoogleCalendar/CalendarApi";
+import { toggleAuthFalse } from "./authenticationSlice";
+import { clearUserInfo } from "./GoogleAuthSlices";
 
 import "./GoogleButton.css";
 
 const GoogleClientID =
   "418441773673-rlitdccc7t7bkvtl0mbompuvsb2hqrsg.apps.googleusercontent.com";
 
-const GoogleButton = () => {
+const GoogleLogoutButton = () => {
   const dispatch = useDispatch();
 
   const responseGoogle = (response) => {
-    dispatch(addUserInfo(response));
-    dispatch(toggleAuthTrue());
-    GoogleCalendarConfig();
+    dispatch(toggleAuthFalse());
+    dispatch(clearUserInfo());
     console.log(response);
   };
 
   return (
-    <GoogleSignIn
+    <GoogleLogout
       clientId={GoogleClientID}
-      onSuccess={responseGoogle}
-      isSignedIn={true}
+      onLogoutSuccess={responseGoogle}
       style={{ borderRadius: 30 }}
       icon={false}
       className="button-container"
@@ -33,14 +29,14 @@ const GoogleButton = () => {
       <div className="button">
         <img
           src="assets/Google__G__Logo.svg"
-          height="30px"
+          height="20px"
           className="icon"
           alt="Google Icon"
         ></img>
-        <span className="button-text">Login with Google</span>
+        <span className="button-logout-text">Logout of Google</span>
       </div>
-    </GoogleSignIn>
+    </GoogleLogout>
   );
 };
 
-export default GoogleButton;
+export default GoogleLogoutButton;
