@@ -3,14 +3,25 @@ import { useSelector } from "react-redux";
 import { Grid, Container, LinearProgress } from "@material-ui/core";
 import GoogleLogoutButton from "../../features/GoogleAuth/GoogleLogoutButton";
 import FormCalendar from "../../components/FormCalendar";
+import * as GoogleCalendarApi from "../../features/GoogleCalendar/CalendarRepository";
+import { GoogleCalendarConfig } from "../../features/GoogleCalendar/CalendarApi";
 import "./Home.css";
 
 const Home = () => {
   const [calendarList, setCalendarList] = useState([]);
-  const [load, setload] = useState(false);
+  const [load, setload] = useState(true);
   const user = useSelector((state) => state.GoogleUser.profileObj);
+  const accessToken = useSelector((state) => state.GoogleUser.accessToken);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    GoogleCalendarConfig(accessToken)
+      .then(
+        GoogleCalendarApi.GetCalendarsNameList().then((calendarList) => {
+          setCalendarList(calendarList);
+        })
+      )
+      .then(setload(false));
+  }, []);
 
   return (
     <Container>

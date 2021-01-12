@@ -1,12 +1,7 @@
-import { store } from '../../app/store'
-
 export const GoogleCalendarHeader = new Headers()
 
-export const GoogleCalendarConfig = () => {
-  GoogleCalendarHeader.append(
-    'Authorization',
-    'Bearer ' + store.GoogleUser.accessToken
-  )
+export const GoogleCalendarConfig = async accessToken => {
+  GoogleCalendarHeader.append('Authorization', 'Bearer ' + accessToken)
 }
 
 /**

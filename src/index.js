@@ -5,6 +5,8 @@ import App from './App'
 import { store, persistor } from './app/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import DateFnsUtils from '@date-io/date-fns'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import * as serviceWorker from './serviceWorker'
 import Loader from './components/Loader'
 
@@ -12,7 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={Loader} persistor={persistor}>
-        <App />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <App />
+        </MuiPickersUtilsProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>,

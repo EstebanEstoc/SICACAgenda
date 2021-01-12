@@ -69,3 +69,19 @@ export const CreateFormEvent = async (start, end, calendarId, formId) => {
     return 'Impossible to create Pills Event, try again later'
   }
 }
+
+export const GetCalendarsNameList = async () => {
+  try {
+    const calendars = await GoogleCalendarApi.GetGoogleCalendarList()
+    const calendarList = []
+    calendars.forEach(calendar => {
+      calendarList.push({
+        id: calendar.id,
+        name: calendar.summary
+      })
+    })
+    return calendarList
+  } catch (error) {
+    console.log(error)
+  }
+}
