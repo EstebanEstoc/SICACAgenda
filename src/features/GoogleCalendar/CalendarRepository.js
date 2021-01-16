@@ -1,5 +1,7 @@
 import * as GoogleCalendarApi from './CalendarApi'
 
+export const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
+
 export const CreatePillEvent = async (pills, start, end, calendarId) => {
   try {
     const res = await GoogleCalendarApi.CreateEvent(
@@ -8,11 +10,12 @@ export const CreatePillEvent = async (pills, start, end, calendarId) => {
       end,
       start,
       '',
+      TIMEZONE,
       calendarId
     )
     return res.htmlLink
   } catch (error) {
-    return 'Impossible to create Pills Event, try again later'
+    throw new Error('Impossible to create Pills Event, try again later')
   }
 }
 
@@ -24,11 +27,12 @@ export const CreateWalkEvent = async (start, end, calendarId) => {
       end,
       start,
       '',
+      TIMEZONE,
       calendarId
     )
     return res.htmlLink
   } catch (error) {
-    return 'Impossible to create Walk Event, try again later'
+    throw new Error('Impossible to create Walk Event, try again later')
   }
 }
 
@@ -46,11 +50,12 @@ export const CreateAppointementEvent = async (
       end,
       start,
       location,
+      TIMEZONE,
       calendarId
     )
     return res.htmlLink
   } catch (error) {
-    return 'Impossible to create Pills Event, try again later'
+    throw new Error('Impossible to create Pills Event, try again later')
   }
 }
 
@@ -62,11 +67,12 @@ export const CreateFormEvent = async (start, end, calendarId, formId) => {
       end,
       start,
       '',
+      TIMEZONE,
       calendarId
     )
     return res.htmlLink
   } catch (error) {
-    return 'Impossible to create Pills Event, try again later'
+    throw new Error('Impossible to create Pills Event, try again later')
   }
 }
 

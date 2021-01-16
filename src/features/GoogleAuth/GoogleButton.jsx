@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import GoogleSignIn from "react-google-login";
 
 import { toggleAuthTrue } from "./authenticationSlice";
-import { addUserInfo } from "./GoogleAuthSlices";
-import { GoogleCalendarConfig } from "../GoogleCalendar/CalendarApi";
+import { addUserInfo, saveUserToken } from "./GoogleAuthSlices";
 
 import "./GoogleButton.css";
 
@@ -16,9 +15,19 @@ const GoogleButton = () => {
 
   const responseGoogle = (response) => {
     dispatch(addUserInfo(response));
-    dispatch(toggleAuthTrue());
-    GoogleCalendarConfig();
-    console.log(response);
+    refreshTokenSetup(response).then(dispatch(toggleAuthTrue()));
+  };
+
+  const refreshTokenSetup = async (res) => {
+    let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
+    const refreshToken = async () => {
+      const newAuthRes = await res.reloadAuthResponse();
+      refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
+      console.log("newAuthRes", newAuthRes);
+      dispatch(saveUserToken(newAuthRes.accessToken));
+      setTimeout(refreshToken, refreshTiming);
+    };
+    setTimeout(refreshToken, refreshTiming);
   };
 
   return (

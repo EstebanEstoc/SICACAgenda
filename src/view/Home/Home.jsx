@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Container, LinearProgress } from "@material-ui/core";
 import GoogleLogoutButton from "../../features/GoogleAuth/GoogleLogoutButton";
 import FormCalendar from "../../components/FormCalendar";
 import * as GoogleCalendarApi from "../../features/GoogleCalendar/CalendarRepository";
+import { clearUserInfo } from "../../features/GoogleAuth/GoogleAuthSlices";
+import { toggleAuthFalse } from "../../features/GoogleAuth/authenticationSlice";
 import { GoogleCalendarConfig } from "../../features/GoogleCalendar/CalendarApi";
 import "./Home.css";
 
 const Home = () => {
   const [calendarList, setCalendarList] = useState([]);
   const [load, setload] = useState(true);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.GoogleUser.profileObj);
+  const tokenTimeOut = useSelector(
+    (state) => state.GoogleUser.tokenObj.expires_at
+  );
   const accessToken = useSelector((state) => state.GoogleUser.accessToken);
 
   useEffect(() => {
-    GoogleCalendarConfig(accessToken)
-      .then(
-        GoogleCalendarApi.GetCalendarsNameList().then((calendarList) => {
-          setCalendarList(calendarList);
-        })
-      )
-      .then(setload(false));
-  }, []);
+    if (tokenTimeOut > Date.now() && accessToken) {
+      GoogleCalendarConfig(accessToken).then(
+        GoogleCalendarApi.GetCalendarsNameList()
+          .then((calendarList) => {
+            setCalendarList(calendarList);
+          })
+          .then(setload(false))
+      );
+    } else {
+      dispatch(clearUserInfo());
+      dispatch(toggleAuthFalse());
+    }
+  }, [accessToken, dispatch, tokenTimeOut]);
 
   return (
     <Container>

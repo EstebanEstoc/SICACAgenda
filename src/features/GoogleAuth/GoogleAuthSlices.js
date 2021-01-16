@@ -5,10 +5,11 @@ const userSlice = createSlice({
   initialState: null,
   reducers: {
     clearUserInfo: state => null,
-    addUserInfo: (state, action) => action.payload
+    addUserInfo: (state, action) => action.payload,
+    saveUserToken: (state, action) => (state.accessToken = action.payload)
   }
 })
 
-export const { clearUserInfo, addUserInfo } = userSlice.actions
+export const { clearUserInfo, addUserInfo, saveUserToken } = userSlice.actions
 
 export default userSlice.reducer

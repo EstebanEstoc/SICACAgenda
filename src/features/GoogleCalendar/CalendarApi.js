@@ -8,19 +8,19 @@ export const GoogleCalendarConfig = async accessToken => {
  * Get the list of the connected user's Calendar
  */
 export const GetGoogleCalendarList = async () => {
-  try {
-    const res = await fetch(
-      'https://www.googleapis.com/calendar/v3/users/me/calendarList',
-      {
-        method: 'GET',
-        headers: GoogleCalendarHeader
-      }
-    )
-    const json = await res.json()
-    return json.items
-  } catch (error) {
-    throw new Error(error)
+  const res = await fetch(
+    'https://www.googleapis.com/calendar/v3/users/me/calendarList',
+    {
+      method: 'GET',
+      headers: GoogleCalendarHeader
+    }
+  )
+  if (!res.ok) {
+    console.log(res.statusText)
+    throw Error(res.statusText)
   }
+  const json = await res.json()
+  return json.items
 }
 
 /**
@@ -38,34 +38,38 @@ export const CreateEvent = async (
   end,
   start,
   location = '',
+  timeZone,
   calendarId
 ) => {
-  try {
-    GoogleCalendarHeader.append('Accept', 'application/json')
-    GoogleCalendarHeader.append('Content-Type', 'application/json')
-    const res = await fetch(
-      'https://www.googleapis.com/calendar/v3/calendars/' +
-        calendarId +
-        '/events',
-      {
-        method: 'POST',
-        headers: GoogleCalendarHeader,
-        body: JSON.stringify({
-          end: {
-            date: end
-          },
-          start: {
-            date: start
-          },
-          description: description,
-          summary: summary,
-          location: location
-        })
-      }
-    )
-    const json = await res.json()
-    return json
-  } catch (error) {
-    throw new Error(error)
+  GoogleCalendarHeader.append('Accept', 'application/json')
+  GoogleCalendarHeader.append('Content-Type', 'application/json')
+  console.log(GoogleCalendarHeader)
+  const res = await fetch(
+    'https://www.googleapis.com/calendar/v3/calendars/' +
+      calendarId +
+      '/events',
+    {
+      method: 'POST',
+      headers: GoogleCalendarHeader,
+      body: JSON.stringify({
+        end: {
+          dateTime: end,
+          timeZone
+        },
+        start: {
+          dateTime: start,
+          timeZone
+        },
+        description: description,
+        summary: summary,
+        location: location
+      })
+    }
+  )
+  const json = await res.json()
+  if (!res.ok) {
+    console.log(res.statusText)
+    throw Error(res.statusText)
   }
+  return json
 }
