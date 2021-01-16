@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Container, LinearProgress } from "@material-ui/core";
+import { Grid, Container, LinearProgress, IconButton } from "@material-ui/core";
 import GoogleLogoutButton from "../../features/GoogleAuth/GoogleLogoutButton";
 import FormCalendar from "../../components/FormCalendar";
 import * as GoogleCalendarApi from "../../features/GoogleCalendar/CalendarRepository";
@@ -87,6 +87,21 @@ const Home = () => {
             </Grid>
             <Grid item>
               <GoogleLogoutButton />
+            </Grid>
+            <Grid item>
+              <a
+                href="https://calendar.google.com/calendar"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <IconButton>
+                  <img
+                    height="30px"
+                    src="assets/Google_Calendar_icon_(2020).svg"
+                    alt="calendarLogo"
+                  ></img>
+                </IconButton>
+              </a>
             </Grid>
           </Grid>
         )}

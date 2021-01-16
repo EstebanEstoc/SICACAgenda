@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     zIndex: 1,
   },
   button: {
-    marginTop: "10px",
+    marginTop: "20px",
     zIndex: 1,
   },
 });
@@ -60,10 +60,6 @@ const FormCalendar = ({ calendarList }) => {
   const [error, setError] = useState("");
   const [link, setlink] = useState("");
   //const [formId, setformId] = useState("");
-
-  useEffect(() => {
-    console.log(pills);
-  }, [pills]);
 
   const styles = useStyles();
 
@@ -407,7 +403,7 @@ const FormCalendar = ({ calendarList }) => {
           style={{
             backgroundColor: "#093E60",
             color: "white",
-            borderRadius: "30px",
+            borderRadius: "200px",
           }}
           onClick={() => addEvent()}
         >
