@@ -8,7 +8,7 @@ import {
   IconButton,
   Icon,
 } from "@material-ui/core";
-import { green, red } from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
 import { loadCSS } from "fg-loadcss";
 
 const useStyles = makeStyles({
