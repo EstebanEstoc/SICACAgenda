@@ -37,6 +37,7 @@ const GoogleButton = () => {
       isSignedIn={true}
       style={{ borderRadius: 30 }}
       icon={false}
+      scope={"profile email https://www.googleapis.com/auth/calendar"}
       className="button-container"
     >
       <div className="button">
