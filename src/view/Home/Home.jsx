@@ -14,14 +14,11 @@ const Home = () => {
   const [load, setload] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.GoogleUser.profileObj);
-  const tokenTimeOut = useSelector(
-    (state) => state.GoogleUser.tokenObj.expires_at
-  );
-  const accessToken = useSelector((state) => state.GoogleUser.accessToken);
+  const GoogleUser = useSelector((state) => state.GoogleUser);
 
   useEffect(() => {
-    if (tokenTimeOut > Date.now() && accessToken) {
-      GoogleCalendarConfig(accessToken).then(
+    if (GoogleUser.tokenObj.expires_at > Date.now() && GoogleUser.accessToken) {
+      GoogleCalendarConfig(GoogleUser.accessToken).then(
         GoogleCalendarApi.GetCalendarsNameList()
           .then((calendarList) => {
             setCalendarList(calendarList);
@@ -30,9 +27,8 @@ const Home = () => {
       );
     } else {
       dispatch(clearUserInfo());
-      dispatch(toggleAuthFalse());
     }
-  }, [accessToken, dispatch, tokenTimeOut]);
+  }, [GoogleUser, dispatch]);
 
   return (
     <Container>

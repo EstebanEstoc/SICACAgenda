@@ -5,7 +5,7 @@ import Login from "./view/Login/Login";
 import Home from "./view/Home/Home";
 
 function App() {
-  const isAuth = useSelector((state) => state.authentication);
+  const isAuth = useSelector((state) => state.GoogleUser);
 
   return <div className="App">{isAuth ? <Home /> : <Login />}</div>;
 }
