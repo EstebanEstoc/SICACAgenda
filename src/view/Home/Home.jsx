@@ -5,7 +5,6 @@ import GoogleLogoutButton from "../../features/GoogleAuth/GoogleLogoutButton";
 import FormCalendar from "../../components/FormCalendar";
 import * as GoogleCalendarApi from "../../features/GoogleCalendar/CalendarRepository";
 import { clearUserInfo } from "../../features/GoogleAuth/GoogleAuthSlices";
-import { toggleAuthFalse } from "../../features/GoogleAuth/authenticationSlice";
 import { GoogleCalendarConfig } from "../../features/GoogleCalendar/CalendarApi";
 import "./Home.css";
 
